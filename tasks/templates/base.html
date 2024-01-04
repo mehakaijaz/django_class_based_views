@@ -1,0 +1,122 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+    <style>
+        * {
+  font-family: "Courier New", Courier, monospace;
+  padding: 0;
+  margin: 0;
+}
+header {
+  padding: 20px;
+  background-color: rgb(5, 43, 82);
+}
+header a {
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.task {
+  list-style-type: none;
+  padding: 20px;
+  background-color: #d0cfcf;
+  margin: 20px 10px;
+}
+
+.task > a {
+  color: rgb(5, 43, 82);
+  font-weight: bold;
+}
+
+input,
+textarea {
+  width: 100%;
+}
+.container {
+  margin:50px auto;
+  width: 80%;
+}
+
+input[type="text"],
+textarea {
+  border: none;
+  background-color: #d0cfcf;
+  padding: 15px 5px;
+  font-size: 16px
+  ;
+}
+input[type="email"],
+input[type="password"] {
+  border: none;
+  background-color: #d0cfcf;
+  padding: 15px 5px;
+}
+input[type="submit"] {
+  padding: 12px;
+  color: white;
+  background-color: rgb(5, 43, 82);
+  font-size: 14px;
+  border-radius: 7px;
+  margin: 20px 0;
+  width: 100%;
+}
+.actions {
+  margin: 20px 5px;
+}
+
+.update-btn {
+  background-color: white;
+  text-decoration: none;
+  color: green;
+  padding: 10px;
+  border: 1px solid green;
+}
+.delete-btn {
+  background-color: white;
+  color: red;
+  border: 1px solid red;
+  padding: 8px;
+  text-decoration: none;
+}
+    </style>
+    <title>Tasks App</title>
+</head>
+<body>
+    <header>
+        
+        {% if user.is_authenticated %}
+            <a href="{% url 'homepage' %}">Home</a>
+            <a href="{% url 'add_task' %}">Create Tasks</a>
+            <a href="{% url 'settings' %}">Settings</a>  
+            <a href="{% url 'logout' %}">Log Out</a>
+            
+        {% else %}
+            <a href="{% url 'homepage' %}">Home</a>
+            <a href="{% url 'signup' %}">Sign Up</a>
+            <a href="{% url 'login' %}">Login</a>
+            
+        {% endif %}
+            
+    </header>
+    <main class="container">
+        
+        {% if messages %}
+            <ul>
+            {% for message in messages %}
+                <li>{{message}}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+            
+        {% block content %}
+            
+        {% endblock content %}  
+    </main>
+</body>
+</html>
